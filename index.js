@@ -1,3 +1,4 @@
+
 //parent element to store cards
 const taskcontainer=document.querySelector(".task_container");
 
@@ -14,7 +15,7 @@ const newCard=({id,imageURL,taskTitle,taskType,taskDescription})=>`<div class="c
       <span class="badge bg-primary">${taskType}</span>
     </div>
     <div class="card-footer text-muted">
-        <button type="button" class="btn btn-outline-primary float-end">Open Task</button>
+        <button type="button" class="btn btn-outline-primary float-end" >Open Task</button>
     </div>
   </div>
 </div>`;
