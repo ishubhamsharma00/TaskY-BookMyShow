@@ -3,13 +3,13 @@
 const taskcontainer=document.querySelector(".task_container");
 
 //Global Store (its an array)
-const globalStore=[];
+let globalStore=[];
 
 const newCard=({id,imageURL,taskTitle,taskType,taskDescription})=>`<div class="col-md-6 col-lg-4" id=${id}>
 <div class="card">
     <div class="card-header d-flex justify-content-end gap-2 ">
         <button type="button" class="btn btn-outline-success"><i class="fa-solid fa-pencil"></i></button>
-        <button type="button" class="btn btn-outline-danger"><i class="fa-sharp fa-solid fa-trash"></i></button>
+        <button type="button" id=${id} class="btn btn-outline-danger" onclick="deleteCard.apply(this,arguments)"><i class="fa-sharp fa-solid fa-trash" id=${id} onclick="deleteCard.apply(this,arguments)"></i></button>
     </div>
     <img src="${imageURL}" class="card-img-top" alt="...">
     <div class="card-body">
@@ -39,6 +39,8 @@ const loadInitialTaskCard=()=>{
     });
 };
 
+const updateLocalStorage=()=>{localStorage.setItem("tasky", JSON.stringify({cards: globalStore}));};
+
 const saveChanges=()=>{
     const taskdata={
         id: `${Date.now()}`,//unique number for card id
@@ -55,5 +57,23 @@ const saveChanges=()=>{
     globalStore.push(taskdata);
 
     //add to localstorage
-    localStorage.setItem("tasky", JSON.stringify({cards: globalStore}));
+    updateLocalStorage();
+};
+
+const deleteCard=(event)=>{
+    //id of card
+    event = window.event;
+    const targetID= event.target.id;
+    const tagname= event.target.tagName;
+    //search globalstore, remove the object which matches with the id
+    const newUpdatedArray= globalStore.filter((cardObject)=>cardObject.id!==targetID);
+    globalStore= newUpdatedArray;
+    updateLocalStorage();
+
+    if(tagname==="BUTTON"){
+        return taskcontainer.removeChild(event.target.parentNode.parentNode.parentNode);
+    }
+    return taskcontainer.removeChild(event.target.parentNode.parentNode.parentNode.parentNode);
+    //loop over the new globalStorage, and inject updated cards to DOM
+
 };
