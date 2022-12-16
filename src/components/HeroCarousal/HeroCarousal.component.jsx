@@ -1,7 +1,6 @@
 import React from "react";
 import HeroSlider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { NextArrow,PrevArrow } from "./Arrows.component";
 
 const HeroCarousal=()=>{
 
@@ -10,20 +9,22 @@ const HeroCarousal=()=>{
         autoplay: true,
         centerMode: true,
         centerPadding: "300px",
-        dots: true,
         speed: 300,
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: true,
+        nextArrow:<NextArrow/>,
+        prevArrow:<PrevArrow/>,
     };
 
     const settings = {
         arrows: true,
-        dots: true,
         infinite: true,
         speed: 300,
         slidesToShow: 1,
         slidesToScroll: 1,
+        nextArrow:<NextArrow/>,
+        prevArrow:<PrevArrow/>,
       };
 
       const images=[
